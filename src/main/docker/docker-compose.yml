@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  app:
+    container_name: app
+    build: .
+    depends_on:
+      - dbpostgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/netcracker_postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=netcracker
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  dbpostgres:
+    image: 'postgres:latest'
+    container_name: netcracker_postgres
+    ports:
+      - 5433
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=netcracker
