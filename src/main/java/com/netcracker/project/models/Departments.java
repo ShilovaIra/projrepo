@@ -9,18 +9,34 @@ public class Departments {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-//    @OneToOne
-//    @Column(name = "parent_id")
-//    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_DEPARTMENT_PARENT_ID"))
-//    private Departments parent_id;
+    @OneToMany(mappedBy = "linkPk.department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserRole> userRoles;
 
-    @OneToMany(targetEntity = Specialty.class, fetch = FetchType.EAGER, mappedBy = "department_id")
-    private Set<Specialty> specialty;
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserCourses> userCourses;
+
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Specialty> specialties;
+
+    @OneToOne
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    private Departments department;
+
+    public Departments() {
+    }
+
+    public Departments(String name, Set<UserRole> userRoles, Set<UserCourses> userCourses, Set<Specialty> specialties) {
+        this.name = name;
+        this.userRoles = userRoles;
+        this.userCourses = userCourses;
+        this.specialties = specialties;
+    }
 
     public String getName() {
         return name;
@@ -30,28 +46,6 @@ public class Departments {
         this.name = name;
     }
 
-    public Departments() {
-    }
-
-    public Departments(Long id, String name, Set<Specialty> specialty) {
-        this.id = id;
-        this.name = name;
-        this.specialty = specialty;
-    }
-
-    public Departments(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    //    public Departments getParent_id() {
-//        return parent_id;
-//    }
-//
-//    public void setParent_id(Departments parent_id) {
-//        this.parent_id = parent_id;
-//    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -60,4 +54,5 @@ public class Departments {
     public Long getId() {
         return id;
     }
+
 }

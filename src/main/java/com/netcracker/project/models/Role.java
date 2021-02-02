@@ -1,9 +1,10 @@
-package com.netcracker.project.models.Role;
+package com.netcracker.project.models;
 
 import com.netcracker.project.models.Users;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -15,11 +16,11 @@ public class Role {
     @Column(name = "id", updatable=false, nullable = false)
     private Long id;
 
+    @OneToMany(mappedBy = "linkPk.role", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserRole> userRoles;
+
     @Column(name = "name")
     private String name;
-
-//    @ManyToMany(mappedBy = "roles")
-//    private List<Users> users;
 
     @Id
     public Long getId() {
@@ -30,6 +31,16 @@ public class Role {
         this.id = id;
     }
 
+    public Role() {
+    }
+
+    public Role(Set<UserRole> userRoles, String name) {
+        this.userRoles = userRoles;
+        this.name = name;
+    }
+
+
+
     public String getName() {
         return name;
     }
@@ -38,11 +49,4 @@ public class Role {
         this.name = name;
     }
 
-//    public List<Users> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<Users> users) {
-//        this.users = users;
-//    }
 }

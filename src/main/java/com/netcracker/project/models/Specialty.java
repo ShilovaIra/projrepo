@@ -1,6 +1,7 @@
 package com.netcracker.project.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "specialty")
@@ -13,30 +14,20 @@ public class Specialty {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id",nullable = false)
-    private Departments departments;
+    @OneToMany(mappedBy = "specialty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserSpecialty> userSpecialties;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "department_id", nullable = false)
+    private Departments department;
 
     public Specialty() {
     }
 
-    public Specialty(Long id, String name) {
-        this.id = id;
+    public Specialty(String name, Set<UserSpecialty> userSpecialties, Departments department) {
         this.name = name;
-    }
-
-    public Specialty(Long id, String name, Departments departments) {
-        this.id = id;
-        this.name = name;
-        this.departments = departments;
-    }
-
-    public Departments getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(Departments departments) {
-        this.departments = departments;
+        this.userSpecialties = userSpecialties;
+        this.department = department;
     }
 
     public String getName() {
