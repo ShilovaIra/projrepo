@@ -11,11 +11,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
+@ResponseBody
 public class UserController {
 
-    //@Autowired
-    private UserServiceImpl userService = new UserServiceImpl();
+    @Autowired
+    private UserServiceImpl userService;
 
 //    @RequestMapping("/user")
 //        public String index(@RequestParam(name="first_name", required = false) String firstName,
@@ -36,23 +37,23 @@ public class UserController {
 
     @GetMapping("/")
     public String index() {
-        return "userTemp";
+        return "src/main/resources/templates/userTemp";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String hello(Model model, @RequestParam(defaultValue = "") String searchName) {
         List<Users> users = userService.getAll();
 
         List<Users> filterList = users.stream()
                 .filter(p -> p.getFirst_name().contains(searchName))
                 .collect(Collectors.toList());
-        model.addAttribute("users", filterList);
-        model.addAttribute("lastSearch", searchName);
+        model.addAttribute("users", users);
+        //model.addAttribute("lastSearch", searchName);
         return "userTemp";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Model model, @ModelAttribute("users") Users users) {
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    public String save(Model model, @ModelAttribute("userTemp") Users users) {
         List<Users> usersList = (List<Users>) userService.addUser(users);
         model.addAttribute("users", usersList);
         return "userTemp";

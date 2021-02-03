@@ -18,8 +18,8 @@ public class Departments {
     @OneToMany(mappedBy = "linkPk.department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserCourses> userCourses;
+    @OneToMany(mappedBy = "linkPk.department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserCourse> userCourse;
 
     @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Specialty> specialties;
@@ -31,10 +31,10 @@ public class Departments {
     public Departments() {
     }
 
-    public Departments(String name, Set<UserRole> userRoles, Set<UserCourses> userCourses, Set<Specialty> specialties) {
+    public Departments(String name, Set<UserRole> userRoles, Set<UserCourse> userCourse, Set<Specialty> specialties) {
         this.name = name;
         this.userRoles = userRoles;
-        this.userCourses = userCourses;
+        this.userCourse = userCourse;
         this.specialties = specialties;
     }
 

@@ -14,7 +14,7 @@ public class Specialty {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "specialty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "linkPk.specialty", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserSpecialty> userSpecialties;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -24,9 +24,9 @@ public class Specialty {
     public Specialty() {
     }
 
-    public Specialty(String name, Set<UserSpecialty> userSpecialties, Departments department) {
+    public Specialty(String name, Set<UserSpecialty> userSpecialty, Departments department) {
         this.name = name;
-        this.userSpecialties = userSpecialties;
+        this.userSpecialties = userSpecialty;
         this.department = department;
     }
 

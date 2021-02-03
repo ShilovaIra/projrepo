@@ -13,35 +13,35 @@ public class Course {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserCourses> userCourses;
+    @OneToMany(mappedBy = "linkPk.course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserCourse> userCourse;
 
-    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserSpecialty> userSpecialties;
+    @OneToMany(mappedBy = "linkPk.course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserSpecialty> userSpecialty;
 
     public Course() {
     }
 
-    public Course(String name, Set<UserCourses> userCourses, Set<UserSpecialty> userSpecialties) {
+    public Set<UserCourse> getUserCourse() {
+        return userCourse;
+    }
+
+    public void setUserCourse(Set<UserCourse> userCourse) {
+        this.userCourse = userCourse;
+    }
+
+    public Course(String name, Set<UserCourse> userCourse, Set<UserSpecialty> userSpecialties) {
         this.name = name;
-        this.userCourses = userCourses;
-        this.userSpecialties = userSpecialties;
-    }
-
-    public Set<UserCourses> getUserCourses() {
-        return userCourses;
-    }
-
-    public void setUserCourses(Set<UserCourses> userCourses) {
-        this.userCourses = userCourses;
+        this.userCourse = userCourse;
+        this.userSpecialty = userSpecialties;
     }
 
     public Set<UserSpecialty> getUserSpecialties() {
-        return userSpecialties;
+        return userSpecialty;
     }
 
-    public void setUserSpecialties(Set<UserSpecialty> userSpecialties) {
-        this.userSpecialties = userSpecialties;
+    public void setUserSpecialties(Set<UserSpecialty> userSpecialty) {
+        this.userSpecialty = userSpecialty;
     }
 
     public Long getId() {

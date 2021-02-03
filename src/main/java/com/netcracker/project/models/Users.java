@@ -36,11 +36,11 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "linkPk.user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserRole> userRoles;
 
-    @OneToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserCourses> userCourses;
+    @OneToMany(mappedBy = "linkPk.user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserCourse> userCourse;
 
-    @OneToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<UserSpecialty> userSpecialties;
+    @OneToMany(mappedBy = "linkPk.user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserSpecialty> userSpecialty;
 
 
     public Users() {
@@ -69,8 +69,7 @@ public class Users implements Serializable {
         this.first_name = first_name;
     }
 
-    public Users(String first_name, String surname, String patronymic, String email, Long phone, String login,
-                 Set<UserRole> userRoles, Set<UserCourses> userCourses, Set<UserSpecialty> userSpecialties) {
+    public Users(String first_name, String surname, String patronymic, String email, Long phone, String login, Set<UserRole> userRoles, Set<UserCourse> userCourse, Set<UserSpecialty> userSpecialty) {
         this.first_name = first_name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -78,8 +77,8 @@ public class Users implements Serializable {
         this.phone = phone;
         this.login = login;
         this.userRoles = userRoles;
-        this.userCourses = userCourses;
-        this.userSpecialties = userSpecialties;
+        this.userCourse = userCourse;
+        this.userSpecialty = userSpecialty;
     }
 
     public String getSurname() {
