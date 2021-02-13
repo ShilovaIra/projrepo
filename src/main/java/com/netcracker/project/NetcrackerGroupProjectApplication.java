@@ -1,9 +1,13 @@
 package com.netcracker.project;
 
+import com.netcracker.project.controllers.UserController;
+import com.netcracker.project.models.Users;
+import com.netcracker.project.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
@@ -12,7 +16,15 @@ import java.util.Arrays;
 public class NetcrackerGroupProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NetcrackerGroupProjectApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(NetcrackerGroupProjectApplication.class, args);
+		//SpringApplication.run(NetcrackerGroupProjectApplication.class, args);
+		UserRepository repository = context.getBean(UserRepository.class); // ok ????
+//		UserController controller = new UserController(repository);
+		//repository.save(new Users(Integer.toUnsignedLong(3),"kek"));
+		Iterable<Users> users = repository.findAll();
+		for (Users user: users) {
+			System.out.println(user);
+		}
 	}
 
 	@Bean

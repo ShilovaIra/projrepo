@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +17,12 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @RequestMapping("/user")
+//    private UserRepository repository;
+//
+//    public UserController(UserRepository repository) {
+//        this.repository = repository;
+//    }
+    //    @RequestMapping("/user")
 //        public String index(@RequestParam(name="first_name", required = false) String firstName,
 //                            @RequestParam(name="surname", required = false) String surname,
 //                            @RequestParam(name="patronymic", required = false) String patronymic,
@@ -37,7 +41,7 @@ public class UserController {
 
     @GetMapping("/")
     public String index() {
-        return "src/main/resources/templates/userTemp";
+        return "src.main.resources.templates.userTemp";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)

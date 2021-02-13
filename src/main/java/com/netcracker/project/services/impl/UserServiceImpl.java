@@ -13,11 +13,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private static UserRepository userRepository;
-
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public Users addUser(Users user) {
